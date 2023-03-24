@@ -7,7 +7,42 @@
 #ifndef PCH_H
 #define PCH_H
 
-// add headers that you want to pre-compile here
+#define KAZIN_SFML
+#define KAZIN_SFML_IMGUI
+
 #include "framework.h"
+#include <types.h>
+#include <console/log.h>
+
+#ifdef KAZIN_WINDOWS
+#include <windows.h>
+#endif
+
+#include "kazilib.h"
+
+#ifdef KAZIN_NET_FROM_SOURCE
+	#define KAZIN_ENET
+	#define _WINSOCKAPI_
+	#define NOMINMAX
+
+	#pragma comment(lib, "ws2_32.lib")
+	#pragma comment(lib, "enet.lib")
+	#include <enet/enet.h>
+
+	namespace common
+	{
+		// #net_op Replace by higher number in projects and lib in case of need,
+		// it probably has to synchronize in type
+		enum NetOp : u8
+		{
+			
+		};
+	}
+
+	#include "packet.h"
+	#include "socket.h"
+	#include "broadcaster.h"
+	#include "auth.h"
+#endif
 
 #endif //PCH_H
